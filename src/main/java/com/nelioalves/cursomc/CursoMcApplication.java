@@ -13,33 +13,30 @@ import java.util.Arrays;
 @SpringBootApplication
 public class CursoMcApplication implements CommandLineRunner {
 
-    private final CategoryRepository categoryRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
-    private final ProductRepository productRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
-    private final CityRepository cityRepository;
+    @Autowired
+    private CityRepository cityRepository;
 
-    private final StateRepository stateRepository;
+    @Autowired
+    private StateRepository stateRepository;
 
-    private final ClientRepository clientRepository;
+    @Autowired
+    private ClientRepository clientRepository;
 
-    private final AddressRepository addressRepository;
-
-    public CursoMcApplication(CategoryRepository categoryRepository, ProductRepository productRepository, CityRepository cityRepository, StateRepository stateRepository, ClientRepository clientRepository, AddressRepository addressRepository) {
-        this.categoryRepository = categoryRepository;
-        this.productRepository = productRepository;
-        this.cityRepository = cityRepository;
-        this.stateRepository = stateRepository;
-        this.clientRepository = clientRepository;
-        this.addressRepository = addressRepository;
-    }
+    @Autowired
+    private AddressRepository addressRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(CursoMcApplication.class, args);
     }
 
     @Override
-    public void run(String... args) {
+    public void run(String... args) throws Exception {
 
         Category cat1 = new Category(null, "Informatica");
         Category cat2 = new Category(null, "Escritorio");
@@ -75,6 +72,7 @@ public class CursoMcApplication implements CommandLineRunner {
         Address a1 = new Address(null, "Rua Flores", "300", "Apt 203", "Jardim", "38220834", cli1, city1);
         Address a2 = new Address(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, city2);
 
+        cli1.getFone().addAll(Arrays.asList("27363323", "93838393"));
         clientRepository.saveAll(Arrays.asList(cli1));
         addressRepository.saveAll(Arrays.asList(a1, a2));
     }
