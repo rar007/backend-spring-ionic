@@ -13,30 +13,33 @@ import java.util.Arrays;
 @SpringBootApplication
 public class CursoMcApplication implements CommandLineRunner {
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    @Autowired
-    private CityRepository cityRepository;
+    private final CityRepository cityRepository;
 
-    @Autowired
-    private StateRepository stateRepository;
+    private final StateRepository stateRepository;
 
-    @Autowired
-    private ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
 
-    @Autowired
-    private AddressRepository addressRepository;
+    private final AddressRepository addressRepository;
+
+    public CursoMcApplication(CategoryRepository categoryRepository, ProductRepository productRepository, CityRepository cityRepository, StateRepository stateRepository, ClientRepository clientRepository, AddressRepository addressRepository) {
+        this.categoryRepository = categoryRepository;
+        this.productRepository = productRepository;
+        this.cityRepository = cityRepository;
+        this.stateRepository = stateRepository;
+        this.clientRepository = clientRepository;
+        this.addressRepository = addressRepository;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(CursoMcApplication.class, args);
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
 
         Category cat1 = new Category(null, "Informatica");
         Category cat2 = new Category(null, "Escritorio");
