@@ -3,9 +3,19 @@ package com.nelioalves.cursomc.domain;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.nelioalves.cursomc.domain.enums.TypeClient;
 
-import javax.persistence.*;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Client implements Serializable {
@@ -28,14 +38,17 @@ public class Client implements Serializable {
     @OneToMany(mappedBy = "client")
     private List<Address> addresses = new ArrayList<>();
 
+    @OneToMany(mappedBy = "client")
+    private List<Request> requests = new ArrayList<>();
+
     public Client(){}
 
-    public Client(Integer id, String name, String email, String cpfOrCnpj, Integer type) {
+    public Client(Integer id, String name, String email, String cpfOrCnpj, TypeClient type) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.cpfOrCnpj = cpfOrCnpj;
-        this.type = type;
+        this.type = type.getCod();
     }
 
     public Integer getId() {
@@ -92,6 +105,14 @@ public class Client implements Serializable {
 
     public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
+    }
+
+    public List<Request> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(List<Request> requests) {
+        this.requests = requests;
     }
 
     @Override

@@ -1,0 +1,75 @@
+package com.nelioalves.cursomc.domain;
+
+import com.nelioalves.cursomc.domain.enums.StatePayment;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+import java.io.Serializable;
+import java.util.Objects;
+
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Payment implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    private Integer id;
+    private Integer state;
+
+    @OneToOne
+    @JoinColumn(name = "request_id")
+    @MapsId
+    private Request request;
+
+    public Payment() {
+    }
+
+    public Payment(Integer id, StatePayment state, Request request) {
+        this.id = id;
+        this.state = state.getCod();
+        this.request = request;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public StatePayment getState() {
+        return StatePayment.toEnum(state);
+    }
+
+    public void setState(StatePayment state) {
+        this.state = state.getCod();
+    }
+
+    public Request getRequest() {
+        return request;
+    }
+
+    public void setRequest(Request request) {
+        this.request = request;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Payment payment = (Payment) o;
+        return id.equals(payment.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+}
