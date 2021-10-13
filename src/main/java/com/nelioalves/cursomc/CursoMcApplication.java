@@ -4,6 +4,7 @@ import com.nelioalves.cursomc.domain.Address;
 import com.nelioalves.cursomc.domain.Category;
 import com.nelioalves.cursomc.domain.City;
 import com.nelioalves.cursomc.domain.Client;
+import com.nelioalves.cursomc.domain.OrderedItem;
 import com.nelioalves.cursomc.domain.Payment;
 import com.nelioalves.cursomc.domain.PaymentBillet;
 import com.nelioalves.cursomc.domain.PaymentCard;
@@ -16,6 +17,7 @@ import com.nelioalves.cursomc.repositories.AddressRepository;
 import com.nelioalves.cursomc.repositories.CategoryRepository;
 import com.nelioalves.cursomc.repositories.CityRepository;
 import com.nelioalves.cursomc.repositories.ClientRepository;
+import com.nelioalves.cursomc.repositories.OrderedItemRepository;
 import com.nelioalves.cursomc.repositories.PaymentRepository;
 import com.nelioalves.cursomc.repositories.ProductRepository;
 import com.nelioalves.cursomc.repositories.RequestRepository;
@@ -54,6 +56,9 @@ public class CursoMcApplication implements CommandLineRunner {
 
     @Autowired
     private RequestRepository requestRepository;
+
+    @Autowired
+    private OrderedItemRepository orderedItemRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(CursoMcApplication.class, args);
@@ -112,5 +117,18 @@ public class CursoMcApplication implements CommandLineRunner {
 
         requestRepository.saveAll(Arrays.asList(req1, req2));
         paymentRepository.saveAll(Arrays.asList(pay1, pay2));
+
+        OrderedItem ordI1 = new OrderedItem(req1, p1, 0.00, 1, 2000.00);
+        OrderedItem ordI2 = new OrderedItem(req1, p3, 0.00, 1, 80.00);
+        OrderedItem ordI3 = new OrderedItem(req2, p2, 100.00, 1, 800.00);
+
+        req1.getItems().addAll(Arrays.asList(ordI1, ordI2));
+        req2.getItems().addAll(Arrays.asList(ordI3));
+
+        p1.getItems().addAll(Arrays.asList(ordI1));
+        p2.getItems().addAll(Arrays.asList(ordI3));
+        p3.getItems().addAll(Arrays.asList(ordI2));
+
+        orderedItemRepository.saveAll(Arrays.asList(ordI1, ordI2, ordI3));
     }
 }
