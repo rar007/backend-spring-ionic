@@ -1,5 +1,6 @@
 package com.nelioalves.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.nelioalves.cursomc.domain.enums.StatePayment;
 
 import javax.persistence.Entity;
@@ -9,7 +10,10 @@ import java.util.Date;
 public class PaymentBillet extends Payment{
     private static final long serialVersionUID = 1L;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dueDate;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date payday;
 
     public PaymentBillet(){}

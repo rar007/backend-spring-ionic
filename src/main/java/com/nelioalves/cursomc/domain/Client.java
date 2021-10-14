@@ -1,5 +1,6 @@
 package com.nelioalves.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.nelioalves.cursomc.domain.enums.TypeClient;
 
@@ -38,6 +39,7 @@ public class Client implements Serializable {
     @OneToMany(mappedBy = "client")
     private List<Address> addresses = new ArrayList<>();
 
+    @JsonBackReference
     @OneToMany(mappedBy = "client")
     private List<Request> requests = new ArrayList<>();
 
