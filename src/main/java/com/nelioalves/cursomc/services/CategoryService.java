@@ -54,10 +54,15 @@ public class CategoryService {
         return categoryDTO;
     }
 
-    public Page<CategoryDTO> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+    public Page<CategoryDTO> findPage(Integer page, Integer linesPerPage,
+                                      String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
         Page<CategoryDTO> categoryDTO = categoryRepository.findAll(pageRequest).map(obj -> new CategoryDTO(obj));
         return categoryDTO;
+    }
+
+    public Category fromDTO(CategoryDTO objDto) {
+        return new Category(objDto.getId(), objDto.getName());
     }
 
 }
