@@ -21,9 +21,10 @@ public class ClientDTO implements Serializable {
     @Email(message = "informe um email valido")
     private String email;
 
-    public ClientDTO(){}
+    public ClientDTO() {
+    }
 
-    public ClientDTO(Client client){
+    public ClientDTO(Client client) {
         id = client.getId();
         name = client.getName();
         email = client.getEmail();
@@ -52,4 +53,5 @@ public class ClientDTO implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
 }

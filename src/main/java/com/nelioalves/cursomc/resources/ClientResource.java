@@ -2,6 +2,7 @@ package com.nelioalves.cursomc.resources;
 
 import com.nelioalves.cursomc.domain.Client;
 import com.nelioalves.cursomc.dto.ClientDTO;
+import com.nelioalves.cursomc.dto.ClientNewDTO;
 import com.nelioalves.cursomc.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/clients")
 public class ClientResource {
+
     @Autowired
     private ClientService clientService;
 
@@ -47,8 +49,9 @@ public class ClientResource {
     }
 
     @PostMapping
-    public ResponseEntity<Void> insert(@RequestBody @Valid Client client) {
-        var obj = clientService.insert(client);
+    public ResponseEntity<Void> insert(@RequestBody @Valid ClientNewDTO clientDTO) {
+        var obj = clientService.fromDTO(clientDTO);
+        obj = clientService.insert(obj);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{id}")
                 .buildAndExpand(obj.getId()).toUri();
