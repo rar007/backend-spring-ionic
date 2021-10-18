@@ -1,5 +1,6 @@
 package com.nelioalves.cursomc.dto;
 
+import com.nelioalves.cursomc.services.validation.ClientInsert;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
@@ -7,6 +8,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+@ClientInsert
 public class ClientNewDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -35,7 +37,7 @@ public class ClientNewDTO implements Serializable {
     private Integer cityId;
 
 
-    public ClientNewDTO() {
+    public ClientNewDTO() { // Construct empty
     }
 
     public Integer getId() {
