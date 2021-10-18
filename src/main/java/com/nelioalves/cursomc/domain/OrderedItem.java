@@ -30,13 +30,25 @@ public class OrderedItem implements Serializable {
         this.price = price;
     }
 
+    public double getSubTotal() {
+        return (price - discount) * amount;
+    }
+
     @JsonIgnore
     public Request getRequest(){
         return id.getRequest();
     }
 
+    public void setRequest(Request request) {
+        id.setRequest(request);
+    }
+
     public Product getProduct(){
         return id.getProduct();
+    }
+
+    public void setProduct(Product product) {
+        id.setProduct(product);
     }
 
     public OrderedItemPK getId() {

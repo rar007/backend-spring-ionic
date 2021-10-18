@@ -1,6 +1,7 @@
 package com.nelioalves.cursomc.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.nelioalves.cursomc.domain.enums.StatePayment;
 
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 public abstract class Payment implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -29,10 +31,10 @@ public abstract class Payment implements Serializable {
     @MapsId
     private Request request;
 
-    public Payment() {
+    protected Payment() {
     }
 
-    public Payment(Integer id, StatePayment state, Request request) {
+    protected Payment(Integer id, StatePayment state, Request request) {
         this.id = id;
         this.state = (state == null) ? null: state.getCod();
         this.request = request;

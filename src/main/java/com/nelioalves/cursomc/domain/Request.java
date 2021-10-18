@@ -27,7 +27,7 @@ public class Request implements Serializable {
     private Integer id;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-    private Date date;
+    private Date instance;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "request")
     private Payment payment;
@@ -45,19 +45,27 @@ public class Request implements Serializable {
 
     public Request(){}
 
-    public Request(Integer id, Date date, Client client, Address deliveryAddress) {
+    public Request(Integer id, Date instance, Client client, Address deliveryAddress) {
         this.id = id;
-        this.date = date;
+        this.instance = instance;
         this.client = client;
         this.deliveryAddress = deliveryAddress;
     }
 
-    public Request(Integer id, Date date, Payment payment, Client client, Address deliveryAddress) {
+    public Request(Integer id, Date instance, Payment payment, Client client, Address deliveryAddress) {
         this.id = id;
-        this.date = date;
+        this.instance = instance;
         this.payment = payment;
         this.client = client;
         this.deliveryAddress = deliveryAddress;
+    }
+
+    public double getTotalValue() {
+        double sum = 0.0;
+        for (OrderedItem orderedItem : items) {
+            sum += orderedItem.getSubTotal();
+        }
+        return sum;
     }
 
     public Integer getId() {
@@ -68,12 +76,12 @@ public class Request implements Serializable {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getInstance() {
+        return instance;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setInstance(Date date) {
+        this.instance = date;
     }
 
     public Payment getPayment() {

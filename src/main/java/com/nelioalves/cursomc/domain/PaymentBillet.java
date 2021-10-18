@@ -1,12 +1,14 @@
 package com.nelioalves.cursomc.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.nelioalves.cursomc.domain.enums.StatePayment;
 
 import javax.persistence.Entity;
 import java.util.Date;
 
 @Entity
+@JsonTypeName("paymentBillet")
 public class PaymentBillet extends Payment{
     private static final long serialVersionUID = 1L;
 
